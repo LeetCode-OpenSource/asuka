@@ -1,0 +1,30 @@
+{
+  "name": "@asuka/types",
+  "version": "0.0.1",
+  "description": "Type utils used by asuka packages",
+  "keywords": [
+    "Type",
+    "MaybeType"
+  ],
+  "author": "LongYinan <lynweklm@gmail.com>",
+  "homepage": "https://github.com/LeetCode-OpenSource/asuka",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeetCode-OpenSource/asuka.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
+  }
+}

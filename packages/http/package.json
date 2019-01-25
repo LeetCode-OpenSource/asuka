@@ -1,0 +1,34 @@
+{
+  "name": "@asuka/http",
+  "version": "0.0.1",
+  "description": "A request library",
+  "keywords": [
+    "Graphql",
+    "RxJS",
+    "Serialize"
+  ],
+  "author": "LongYinan <lynweklm@gmail.com>",
+  "homepage": "https://github.com/LeetCode-OpenSource/asuka",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeetCode-OpenSource/asuka.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
+  },
+  "dependencies": {
+    "@asuka/types": "0.0.1"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "@asuka/bench",
+  "version": "0.0.1",
+  "description": "Benchmark suites for asuka packages",
+  "keywords": [
+    "Benchmark",
+    "JSON"
+  ],
+  "author": "LongYinan <lynweklm@gmail.com>",
+  "homepage": "https://github.com/LeetCode-OpenSource/asuka",
+  "license": "MIT",
+  "main": "./src/index.tsx",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeetCode-OpenSource/asuka.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
+  },
+  "dependencies": {
+    "@asuka/json-parse-wasm": "^0.1.0",
+    "@emotion/core": "^10.0.6",
+    "@emotion/styled": "^10.0.6",
+    "antd": "^3.12.4",
+    "benchmark": "^2.1.4",
+    "turbo-json-parse": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/benchmark": "^1.0.31"
+  }
+}

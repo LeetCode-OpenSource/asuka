@@ -1,0 +1,36 @@
+{
+  "name": "@asuka/test-server",
+  "version": "0.0.1",
+  "description": "Test server for asuka",
+  "keywords": [
+    "Graphql",
+    "Asuka"
+  ],
+  "private": true,
+  "author": "LongYinan <lynweklm@gmail.com>",
+  "homepage": "https://github.com/LeetCode-OpenSource/asuka",
+  "license": "MIT",
+  "main": "lib/test-server.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeetCode-OpenSource/asuka.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
+  },
+  "dependencies": {
+    "koa": "^2.6.2",
+    "koa-graphql": "^0.8.0",
+    "koa-router": "^7.4.0"
+  }
+}

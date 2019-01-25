@@ -1,0 +1,6 @@
+{
+  "watch": [
+    "packages/test-server",
+    "node_modules"
+  ]
+}
