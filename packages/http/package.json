@@ -11,6 +11,8 @@
   "homepage": "https://github.com/LeetCode-OpenSource/asuka",
   "license": "MIT",
   "main": "lib/index.js",
+  "module": "esm/index.js",
+  "typings": "esm/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -23,7 +25,9 @@
     "url": "git+https://github.com/LeetCode-OpenSource/asuka.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "shx rm -rf lib && tsc -p ./tsconfig.json -m commonjs --outDir lib",
+    "build:esm": "shx rm -rf esm && tsc -p ./tsconfig.json --outDir esm",
+    "typecheck": "tsc -p ./tsconfig.json --noEmit"
   },
   "bugs": {
     "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
