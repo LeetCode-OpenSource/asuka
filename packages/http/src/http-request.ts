@@ -3,7 +3,7 @@ import { omit } from '@asuka/utils'
 export class HttpRequest {
   constructor(private endPoint: string, private init: RequestInit, public shouldReportProgress = false) {}
 
-  clone(update: RequestInit, shouldReportProgress?: boolean) {
+  clone(update: RequestInit, shouldReportProgress = this.shouldReportProgress) {
     if (update.headers) {
       const headers = new Headers(this.init.headers)
       const patchHeaders = new Headers(update.headers)
@@ -12,11 +12,7 @@ export class HttpRequest {
       })
     }
     const requestInit = { ...this.init, ...omit(update, 'headers') }
-    return new HttpRequest(
-      this.endPoint,
-      requestInit,
-      typeof shouldReportProgress !== 'undefined' ? shouldReportProgress : this.shouldReportProgress,
-    )
+    return new HttpRequest(this.endPoint, requestInit, shouldReportProgress)
   }
 
   // @internal

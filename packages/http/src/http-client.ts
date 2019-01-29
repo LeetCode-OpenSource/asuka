@@ -86,6 +86,7 @@ export class HttpClient {
         const _res$ = cur.intercept(req, handler)
         return [handler.req, _res$] as [HttpRequest, Observable<Response>]
       },
+      // tslint:disable-next-line no-useless-cast
       [httpRequest, _source$ as Observable<Response>] as [HttpRequest, Observable<Response>],
     )
     return (res$ as Observable<any>) as Observable<T>

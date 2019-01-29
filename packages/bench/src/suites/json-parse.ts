@@ -131,7 +131,7 @@ export const runJsonParseSuites = async () => {
         })
       })
       .on('complete', function(this: Suite) {
-        console.log('Fastest is ' + this.filter('fastest').map((sui: any) => sui.name))
+        console.info('Fastest is ' + this.filter('fastest').map((sui: any) => sui.name))
         resolve(results)
       })
       .run({

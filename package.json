@@ -12,6 +12,7 @@
   "scripts": {
     "cover": "nyc ava",
     "dev": "node tools/cli/webpack-cli.js",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
     "server": "nodemon packages/test-server",
     "test": "ava"
   },
@@ -95,7 +96,9 @@
     "extension": [
       ".ts"
     ],
-    "include": ["packages/**/*.ts"],
+    "include": [
+      "packages/**/*.ts"
+    ],
     "exclude": [
       "packages/**/*.spec.ts"
     ]
