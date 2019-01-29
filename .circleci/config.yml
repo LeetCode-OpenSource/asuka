@@ -36,6 +36,7 @@ jobs:
       - attach_workspace:
           at: ~/asuka
       - run: yarn lint
+      - run: yarn circular
       - run: yarn cover
       - run:
           name: test-coverage

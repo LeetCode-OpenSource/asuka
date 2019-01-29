@@ -1,6 +1,13 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "esnext"
-  }
+    "module": "esnext",
+    "outDir": "esm",
+    "rootDir": "./src",
+    "composite": true
+  },
+  "references": [
+    { "path": "../types" },
+    { "path": "../utils" }
+  ]
 }

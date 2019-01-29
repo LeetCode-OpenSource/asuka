@@ -1,6 +1,15 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "esnext"
-  }
+    "module": "esnext",
+    "composite": true,
+    "paths": {
+      "@asuka/*": ["./*/src"]
+    },
+    "outDir": "./esm",
+    "rootDir": "./src"
+  },
+  "references": [
+    { "path": "../types" }
+  ]
 }

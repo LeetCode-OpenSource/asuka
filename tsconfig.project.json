@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "references": [
+    { "path": "./packages/types" },
+    { "path": "./packages/utils" },
+    { "path": "./packages/http" }
+  ],
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": [
+    "./packages/types",
+    "./packages/utils",
+    "./packages/http"
+  ]
+}

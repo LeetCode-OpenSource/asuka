@@ -8,10 +8,11 @@
     "Serialize"
   ],
   "author": "LongYinan <lynweklm@gmail.com>",
+  "sideEffects": false,
   "homepage": "https://github.com/LeetCode-OpenSource/asuka",
   "license": "MIT",
   "main": "lib/index.js",
-  "module": "esm/index.js",
+  "module": "esm/bundle.esm.js",
   "typings": "esm/index.d.ts",
   "directories": {
     "lib": "lib",
@@ -25,8 +26,6 @@
     "url": "git+https://github.com/LeetCode-OpenSource/asuka.git"
   },
   "scripts": {
-    "build": "shx rm -rf lib && tsc -p ./tsconfig.json -m commonjs --outDir lib",
-    "build:esm": "shx rm -rf esm && tsc -p ./tsconfig.json --outDir esm",
     "typecheck": "tsc -p ./tsconfig.json --noEmit"
   },
   "bugs": {
