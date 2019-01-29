@@ -29,7 +29,7 @@
     "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
   },
   "dependencies": {
-    "koa": "^2.6.2",
+    "koa": "^2.7.0",
     "koa-graphql": "^0.8.0",
     "koa-router": "^7.4.0"
   }

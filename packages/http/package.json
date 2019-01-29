@@ -29,6 +29,11 @@
     "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
   },
   "dependencies": {
-    "@asuka/types": "0.0.1"
+    "@asuka/types": "0.0.1",
+    "@asuka/utils": "^0.0.1",
+    "qs": "^6.6.0"
+  },
+  "devDependencies": {
+    "@types/qs": "^6.5.1"
   }
 }
