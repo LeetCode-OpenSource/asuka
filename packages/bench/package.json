@@ -1,6 +1,6 @@
 {
   "name": "@asuka/bench",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Benchmark suites for asuka packages",
   "keywords": [
     "Benchmark",
@@ -28,7 +28,7 @@
     "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
   },
   "dependencies": {
-    "@asuka/json-parse-wasm": "^0.1.0",
+    "@asuka/json-parse-wasm": "^0.0.2",
     "@emotion/core": "^10.0.6",
     "@emotion/styled": "^10.0.6",
     "antd": "^3.13.0",

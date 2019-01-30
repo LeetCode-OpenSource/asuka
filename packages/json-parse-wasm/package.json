@@ -4,7 +4,7 @@
   "collaborators": [
     "LongYinan <lynweklm@gmail.com>"
   ],
-  "version": "0.1.0",
+  "version": "0.0.2",
   "module": "./pkg/json_parse_wasm.js",
   "types": "./pkg/json_parse_wasm.d.ts",
   "sideEffects": "false"
