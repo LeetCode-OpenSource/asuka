@@ -6,6 +6,7 @@
     "Benchmark",
     "JSON"
   ],
+  "private": true,
   "author": "LongYinan <lynweklm@gmail.com>",
   "homepage": "https://github.com/LeetCode-OpenSource/asuka",
   "license": "MIT",
