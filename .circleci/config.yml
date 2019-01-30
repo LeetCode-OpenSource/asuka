@@ -35,11 +35,17 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/asuka
-      - run: yarn lint
-      - run: yarn circular
-      - run: yarn cover
+      - run: 
+          name: lint
+          command: yarn lint
+      - run: 
+          name: circular dependencies check
+          command: npx madge --circular ./packages/{http,utils,types}/src/index.ts
       - run:
-          name: test-coverage
+          name: coverage
+          command: yarn cover
+      - run:
+          name: coverage upload
           command: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 
   deploy:
@@ -51,7 +57,7 @@ jobs:
       - run: |
           if git log -1 --pretty=%B | grep "^v\?[0-9]\+\.[0-9]\+\.[0-9]\+$";
           then
-            npm publish
+            lerna publish from-package -y
           else
             echo "Not a release, skipping publish"
           fi

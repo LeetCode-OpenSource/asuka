@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "shx rm -rf ./packages/{http,types,utils}/**/{esm,lib} && tsc -b tsconfig.project.json && rollup --config rollup.config.js",
-    "circular": "madge --circular packages/{http,utils,types}/src/index.ts",
+    "circular": "madge --circular ./packages/{http,utils,types}/src/index.ts",
     "cover": "shx rm -rf .nyc_output && shx rm -rf coverage && nyc --reporter=html --reporter=lcov ava",
     "dev": "node tools/cli/webpack-cli.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
