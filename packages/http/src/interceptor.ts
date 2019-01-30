@@ -9,6 +9,6 @@ export interface Interceptor {
 
 export class DefaultInterceptor implements Interceptor {
   intercept<T, U>(req: HttpRequest, next: HttpHandle<T>): Observable<U> {
-    return next.handle(req).pipe(mergeMap((res: any) => res.json()))
+    return next.handle(req).pipe(mergeMap((res: any) => res.json() as Promise<U>))
   }
 }
