@@ -1,71 +1,15 @@
 import { Suite } from 'benchmark'
 import { SuiteResult } from './type'
 import { jsonSchema } from './json-schema'
+import { fetchGlobalData } from './fetch-global-data'
 const compile = require('turbo-json-parse')
 
 const turboParse = compile(jsonSchema)
 
 const suite = new Suite()
 
-const query = `query globalData {
-  feature {
-    questionTranslation
-    subscription
-    signUp
-    discuss
-    mockInterview
-    contest
-    store
-    book
-    chinaProblemDiscuss
-    socialProviders
-    studentFooter
-    enableChannels
-    dangerZone
-    cnJobs
-    cnAddons
-    __typename
-  }
-  userStatus {
-    isSignedIn
-    isAdmin
-    isStaff
-    isSuperuser
-    isTranslator
-    isPremium
-    isVerified
-    checkedInToday
-    username
-    realName
-    userSlug
-    avatar
-    optedIn
-    requestRegion
-    region
-    activeSessionId
-    permissions
-    notificationStatus {
-      lastModified
-      numUnread
-      __typename
-    }
-    completedFeatureGuides
-    __typename
-  }
-}
-`
-
 export const runJsonParseSuites = async () => {
-  const response = await fetch('/graphql', {
-    body: JSON.stringify({
-      query,
-      variables: null,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-  })
+  const response = await fetchGlobalData()
 
   const { parse: wasmParse } = await import('@asuka/json-parse-wasm')
   return new Promise<SuiteResult[]>((resolve) => {

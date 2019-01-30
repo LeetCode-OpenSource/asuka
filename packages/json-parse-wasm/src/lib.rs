@@ -8,19 +8,20 @@ extern crate wee_alloc;
 
 use std::fmt::Debug;
 
-use serde::Serialize;
-use serde_json::from_slice;
+use serde_json::{from_slice, to_string};
 use wasm_bindgen::prelude::*;
 
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
+#[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
 pub enum FeatureTypename {
   #[serde(rename = "FeatureNode")]
   FeatureNode,
 }
 
+#[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
 pub enum FeatureGuideType {
   #[serde(rename = "OTHER")]
@@ -30,18 +31,21 @@ pub enum FeatureGuideType {
   QuestionDetailTour,
 }
 
+#[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
 pub enum NotificationStatusTypename {
   #[serde(rename = "NotificationStatus")]
   NotificationStatus,
 }
 
+#[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
 pub enum UserStatusTypename {
   #[serde(rename = "MeNode")]
   MeNode,
 }
 
+#[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
 pub enum Permission {
   #[serde(rename = "authentication_ignore_beta_user_flow")]
@@ -117,27 +121,29 @@ pub enum Permission {
   LibrarySeeAllProblems,
 }
 
+#[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
-struct Response<T: Serialize> {
-  data: T,
+pub struct Response {
+  data: GlobalResp,
 }
 
+#[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
-struct UserStatus {
+pub struct UserStatus {
   #[serde(rename = "__typename")]
-  pub typename: UserStatusTypename,
+  typename: UserStatusTypename,
 
   #[serde(rename = "activeSessionId")]
-  pub active_session_id: String,
+  active_session_id: String,
 
   #[serde(rename = "avatar")]
-  pub avatar: String,
+  avatar: String,
 
   #[serde(rename = "checkedInToday")]
   pub checked_in_today: bool,
 
   #[serde(rename = "completedFeatureGuides")]
-  pub completed_feature_guides: Vec<FeatureGuideType>,
+  completed_feature_guides: Vec<FeatureGuideType>,
 
   #[serde(rename = "isAdmin")]
   pub is_admin: bool,
@@ -161,53 +167,56 @@ struct UserStatus {
   pub is_verified: bool,
 
   #[serde(rename = "notificationStatus")]
-  pub notification_status: FluffyNotificationStatus,
+  notification_status: FluffyNotificationStatus,
 
   #[serde(rename = "optedIn")]
   pub opted_in: bool,
 
   #[serde(rename = "permissions")]
-  pub permissions: Vec<Permission>,
+  permissions: Vec<Permission>,
 
   #[serde(rename = "realName")]
-  pub real_name: String,
+  real_name: String,
 
   #[serde(rename = "region")]
-  pub region: String,
+  region: String,
 
   #[serde(rename = "requestRegion")]
-  pub request_region: String,
+  request_region: String,
 
   #[serde(rename = "username")]
-  pub username: String,
+  username: String,
 
   #[serde(rename = "userSlug")]
-  pub user_slug: String,
+  user_slug: String,
 }
 
+#[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
 pub struct FluffyNotificationStatus {
   #[serde(rename = "__typename")]
-  pub typename: NotificationStatusTypename,
+  typename: NotificationStatusTypename,
 
   #[serde(rename = "lastModified")]
-  pub last_modified: String,
+  last_modified: String,
 
   #[serde(rename = "numUnread")]
   pub num_unread: f64,
 }
 
+#[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
-struct GlobalResp {
+pub struct GlobalResp {
   #[serde(rename = "userStatus")]
   user_status: UserStatus,
   feature: Feature,
 }
 
+#[wasm_bindgen]
 #[derive(Serialize, Deserialize)]
 pub struct Feature {
   #[serde(rename = "__typename")]
-  pub typename: FeatureTypename,
+  typename: FeatureTypename,
 
   #[serde(rename = "book")]
   pub book: bool,
@@ -234,7 +243,7 @@ pub struct Feature {
   pub sign_up: bool,
 
   #[serde(rename = "socialProviders")]
-  pub social_providers: String,
+  social_providers: String,
 
   #[serde(rename = "store")]
   pub store: bool,
@@ -265,7 +274,11 @@ fn unwrap_result_abort<T, E: Debug>(o: Result<T, E>) -> T {
 }
 
 #[wasm_bindgen]
-pub fn parse(v: &[u8]) -> JsValue {
-  let user: Response<GlobalResp> = unwrap_result_abort(from_slice(v));
-  unwrap_result_abort(JsValue::from_serde(&user))
+pub fn parse(v: Box<[u8]>) -> Response {
+  unwrap_result_abort(from_slice(v.as_ref()))
+}
+
+#[wasm_bindgen]
+pub fn stringify(v: &Response) -> String {
+  unwrap_result_abort(to_string(v))
 }
