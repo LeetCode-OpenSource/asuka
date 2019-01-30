@@ -1,0 +1,13 @@
+schema:
+  - http://localhost:8000/graphql:
+      headers: {}
+documents: ./packages/codegen/**/*.gql
+overwrite: true
+generates:
+  ./packages/codegen/src/__tests__/graphql.ts:
+    plugins:
+      - "typescript-common"
+      - "typescript-client"
+      - "@asuka/codegen"
+    config:
+      immutableTypes: true

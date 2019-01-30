@@ -3,7 +3,8 @@
   "references": [
     { "path": "./packages/types" },
     { "path": "./packages/utils" },
-    { "path": "./packages/http" }
+    { "path": "./packages/http" },
+    { "path": "./packages/codegen" }
   ],
   "compilerOptions": {
     "noEmit": true
@@ -11,6 +12,7 @@
   "include": [
     "./packages/types",
     "./packages/utils",
-    "./packages/http"
+    "./packages/http",
+    "./packages/codegen"
   ]
 }
