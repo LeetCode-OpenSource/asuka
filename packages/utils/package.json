@@ -1,6 +1,6 @@
 {
   "name": "@asuka/utils",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Utils for asuka",
   "keywords": [
     "Utils"
@@ -33,6 +33,6 @@
     "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
   },
   "dependencies": {
-    "@asuka/types": "^0.0.2"
+    "@asuka/types": "^0.0.3"
   }
 }

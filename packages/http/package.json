@@ -1,6 +1,6 @@
 {
   "name": "@asuka/http",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A request library",
   "keywords": [
     "Graphql",
@@ -32,8 +32,8 @@
     "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
   },
   "dependencies": {
-    "@asuka/types": "^0.0.2",
-    "@asuka/utils": "^0.0.2",
+    "@asuka/types": "^0.0.3",
+    "@asuka/utils": "^0.0.3",
     "qs": "^6.6.0"
   },
   "devDependencies": {
