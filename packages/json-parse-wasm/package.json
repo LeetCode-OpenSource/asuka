@@ -7,5 +7,6 @@
   "version": "0.0.3",
   "module": "./pkg/json_parse_wasm.js",
   "types": "./pkg/json_parse_wasm.d.ts",
-  "sideEffects": "false"
+  "sideEffects": "false",
+  "gitHead": "7840e3c58e90b26adb70a42c503f42f14d5e148a"
 }

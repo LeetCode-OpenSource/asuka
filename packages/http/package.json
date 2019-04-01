@@ -34,9 +34,10 @@
   "dependencies": {
     "@asuka/types": "^0.0.3",
     "@asuka/utils": "^0.0.3",
-    "qs": "^6.6.0"
+    "qs": "^6.7.0"
   },
   "devDependencies": {
-    "@types/qs": "^6.5.1"
-  }
+    "@types/qs": "^6.5.2"
+  },
+  "gitHead": "7840e3c58e90b26adb70a42c503f42f14d5e148a"
 }
