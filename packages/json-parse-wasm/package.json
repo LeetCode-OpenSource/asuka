@@ -8,5 +8,9 @@
   "module": "./pkg/json_parse_wasm.js",
   "types": "./pkg/json_parse_wasm.d.ts",
   "sideEffects": "false",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "gitHead": "7840e3c58e90b26adb70a42c503f42f14d5e148a"
 }

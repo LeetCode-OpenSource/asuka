@@ -14,13 +14,10 @@
   "main": "lib/index.js",
   "module": "esm/bundle.esm.js",
   "typings": "esm/index.d.ts",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
-  "files": [
-    "lib"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LeetCode-OpenSource/asuka.git"

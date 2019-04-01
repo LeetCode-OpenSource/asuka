@@ -123,3 +123,4 @@ Cargo.lock
 pkg/
 lib/
 esm/
+tsconfig.tsbuildinfo
