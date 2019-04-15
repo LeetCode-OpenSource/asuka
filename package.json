@@ -10,7 +10,7 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "shx rm -rf ./packages/{http,types,utils}/**/{esm,lib} && tsc -b tsconfig.project.json && rollup --config rollup.config.js",
+    "build": "shx rm -rf ./packages/{di,http,types,utils}/**/{esm,lib} && shx rm -rf ./packages/**/tsconfig.tsbuildinfo && tsc -b tsconfig.project.json && rollup --config rollup.config.js",
     "circular": "madge --circular ./packages/{http,utils,types}/src/index.ts",
     "cover": "shx rm -rf .nyc_output && shx rm -rf coverage && nyc --reporter=html --reporter=lcov ava",
     "dev": "node tools/cli/webpack-cli.js",
@@ -37,6 +37,7 @@
     "prettier": "^1.16.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "reflect-metadata": "^0.1.13",
     "rollup": "^1.7.4",
     "shx": "^0.3.2",
     "source-map-loader": "^0.2.4",
