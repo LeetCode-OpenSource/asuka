@@ -57,7 +57,8 @@ jobs:
       - run: |
           if git log -1 --pretty=%B | grep "^v\?[0-9]\+\.[0-9]\+\.[0-9]\+$";
           then
-            lerna publish from-package -y
+            yarn global add lerna
+            lerna publish from-git --no-verify-access
           else
             echo "Not a release, skipping publish"
           fi

@@ -1,0 +1,30 @@
+{
+  "name": "@asuka/di",
+  "version": "0.0.5",
+  "description": "Dependencies inject library",
+  "keywords": [
+    "DI",
+    "Dependencies inject",
+    "Injectable"
+  ],
+  "author": "LongYinan <lynweklm@gmail.com>",
+  "homepage": "https://github.com/LeetCode-OpenSource/asuka",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "esm/bundle.esm.js",
+  "typings": "esm/index.d.ts",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeetCode-OpenSource/asuka.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
+  },
+  "dependencies": {
+    "injection-js": "^2.2.1"
+  },
+  "optionalDependencies": {
+    "reflect-metadata": "^0.1.13"
+  }
+}
