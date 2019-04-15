@@ -65,13 +65,18 @@ export class MockProvider<T, M extends AbstractTestModule> {
 }
 
 export abstract class AbstractTestModule {
-  abstract getInstance<T>(token: Token<T>): T
+  abstract getInstance<T>(constructor: Type<T>): T
+  abstract getInstanceByToken<T>(token: InjectionToken<T>): T
 }
 
 export class TestModule implements AbstractTestModule {
   constructor(private injector: ReflectiveInjector) {}
 
-  getInstance<T>(token: Token<T>): T {
+  getInstance<T>(token: Type<T>): T {
+    return this.injector.get(token)
+  }
+
+  getInstanceByToken<T>(token: InjectionToken<T>): T {
     return this.injector.get(token)
   }
 }

@@ -150,6 +150,10 @@ test('should override TestModule', (t) => {
     getInstance<T>(target: any): T {
       return this.injector.get(target)
     }
+
+    getInstanceByToken<T>(token: any): T {
+      return this.injector.get(token)
+    }
   }
 
   const testModule = Test.createTestingModule({

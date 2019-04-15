@@ -1,5 +1,4 @@
-import { ReflectiveInjector, InjectionToken, Provider } from 'injection-js'
-import { ConstructorOf } from '@asuka/types'
+import { ReflectiveInjector, InjectionToken, Provider, Type } from 'injection-js'
 
 export class InjectableFactory {
   // @internal
@@ -8,12 +7,12 @@ export class InjectableFactory {
   static injector = ReflectiveInjector.resolveAndCreate([])
   private static needRecreateInjector = true
 
-  static getInstance<T>(token: ConstructorOf<T> | InjectionToken<T>): T {
-    if (this.needRecreateInjector) {
-      this.injector = ReflectiveInjector.resolveAndCreate(Array.from(this.providers))
-      this.needRecreateInjector = false
-    }
-    return this.injector.get(token)
+  static getInstance<T>(constructor: Type<T>): T {
+    return this._getInstance(constructor)
+  }
+
+  static getInstanceByToken<T>(token: InjectionToken<T>): T {
+    return this._getInstance(token)
   }
 
   static addProviders(...providers: Provider[]) {
@@ -27,5 +26,13 @@ export class InjectableFactory {
     this.providers.clear()
     this.injector = ReflectiveInjector.resolveAndCreate([])
     this.needRecreateInjector = true
+  }
+
+  private static _getInstance<T>(token: Type<T> | InjectionToken<T>): T {
+    if (this.needRecreateInjector) {
+      this.injector = ReflectiveInjector.resolveAndCreate(Array.from(this.providers))
+      this.needRecreateInjector = false
+    }
+    return this.injector.get(token)
   }
 }
