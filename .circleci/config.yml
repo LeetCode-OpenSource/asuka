@@ -54,11 +54,10 @@ jobs:
       - attach_workspace:
           at: ~/asuka
       - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-      - run: export PATH=${PATH}:${HOME}/asuka/node_modules/.bin
       - run: |
           if git log -1 --pretty=%B | grep "^v\?[0-9]\+\.[0-9]\+\.[0-9]\+$";
           then
-            lerna publish from-git --no-verify-access
+            npx lerna publish from-git --no-verify-access
           else
             echo "Not a release, skipping publish"
           fi
