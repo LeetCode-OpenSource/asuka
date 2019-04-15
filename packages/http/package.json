@@ -34,7 +34,7 @@
     "qs": "^6.7.0"
   },
   "devDependencies": {
-    "@types/qs": "^6.5.2"
+    "@types/qs": "^6.5.3"
   },
   "gitHead": "7840e3c58e90b26adb70a42c503f42f14d5e148a"
 }

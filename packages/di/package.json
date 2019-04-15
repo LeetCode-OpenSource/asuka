@@ -13,6 +13,10 @@
   "main": "lib/index.js",
   "module": "esm/bundle.esm.js",
   "typings": "esm/index.d.ts",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "sideEffects": false,
   "repository": {
     "type": "git",
