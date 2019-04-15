@@ -3,18 +3,21 @@ import { ReflectiveInjector, InjectionToken, Type, Provider, ClassProvider } fro
 
 export type Token<T> = Type<T> | InjectionToken<T>
 
-export class Test {
-  static createTestingModule(overrideConfig?: { TestModule?: Type<AbstractTestModule>; providers?: Provider[] }) {
-    return new Test(
+export class Test<M extends AbstractTestModule> {
+  static createTestingModule<M extends AbstractTestModule>(overrideConfig?: {
+    TestModule?: Type<M>
+    providers?: Provider[]
+  }) {
+    return new Test<M>(
       overrideConfig && overrideConfig.providers ? overrideConfig.providers : [],
-      overrideConfig && overrideConfig.TestModule ? overrideConfig.TestModule : TestModule,
+      overrideConfig && overrideConfig.TestModule ? overrideConfig.TestModule : (TestModule as any),
     )
   }
 
   // @internal
   providers: Map<Token<any>, Provider> = new Map()
 
-  private constructor(providers: Provider[], private TestModule: Type<AbstractTestModule>) {
+  private constructor(providers: Provider[], private TestModule: Type<M>) {
     for (const provide of InjectableFactory.providers) {
       if (typeof provide === 'function') {
         this.providers.set(provide, provide)
@@ -32,7 +35,7 @@ export class Test {
     })
   }
 
-  overrideProvider<T>(token: Type<T> | InjectionToken<T>) {
+  overrideProvider<T>(token: Type<T> | InjectionToken<T>): MockProvider<T, M> {
     return new MockProvider(this, token)
   }
 
@@ -42,8 +45,8 @@ export class Test {
   }
 }
 
-export class MockProvider<T> {
-  constructor(private test: Test, private token: Type<T> | InjectionToken<T>) {}
+export class MockProvider<T, M extends AbstractTestModule> {
+  constructor(private test: Test<M>, private token: Type<T> | InjectionToken<T>) {}
 
   useClass(value: Type<T>) {
     this.test.providers.set(this.token, { provide: this.token, useClass: value })
