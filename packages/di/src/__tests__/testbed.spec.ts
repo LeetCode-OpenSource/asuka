@@ -1,7 +1,17 @@
 import 'reflect-metadata'
 import test from 'ava'
 
-import { Inject, Test, Injectable, InjectableFactory, InjectionToken, ValueProvider, FactoryProvider } from '../index'
+import {
+  Inject,
+  Test,
+  Injectable,
+  InjectableFactory,
+  InjectionToken,
+  ValueProvider,
+  FactoryProvider,
+  AbstractTestModule,
+} from '../index'
+import { ReflectiveInjector } from 'injection-js'
 
 test.afterEach(() => {
   InjectableFactory.reset()
@@ -131,4 +141,20 @@ test('should ovrride factory', (t) => {
   const service = testModule.getInstance(Service)
 
   t.is(service.fun, '2')
+})
+
+test('should override TestModule', (t) => {
+  class BetterTestModule implements AbstractTestModule {
+    private injector!: ReflectiveInjector
+
+    getInstance<T>(target: any): T {
+      return this.injector.get(target)
+    }
+  }
+
+  const testModule = Test.createTestingModule({
+    TestModule: BetterTestModule,
+  }).compile()
+
+  t.true(testModule instanceof BetterTestModule)
 })

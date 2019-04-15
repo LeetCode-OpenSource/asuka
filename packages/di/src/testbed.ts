@@ -1,20 +1,20 @@
 import { InjectableFactory } from './index'
 import { ReflectiveInjector, InjectionToken, Type, Provider, ClassProvider } from 'injection-js'
-import { ConstructorOf } from '@asuka/types'
 
 export type Token<T> = Type<T> | InjectionToken<T>
 
 export class Test {
-  static createTestingModule(overrideConfig?: { providers: Provider[] }) {
-    return new Test(overrideConfig ? overrideConfig.providers : [])
+  static createTestingModule(overrideConfig?: { TestModule?: Type<AbstractTestModule>; providers?: Provider[] }) {
+    return new Test(
+      overrideConfig && overrideConfig.providers ? overrideConfig.providers : [],
+      overrideConfig && overrideConfig.TestModule ? overrideConfig.TestModule : TestModule,
+    )
   }
 
   // @internal
   providers: Map<Token<any>, Provider> = new Map()
 
-  private constructor(providers: Provider[]) {
-    this.providers = new Map()
-
+  private constructor(providers: Provider[], private TestModule: Type<AbstractTestModule>) {
     for (const provide of InjectableFactory.providers) {
       if (typeof provide === 'function') {
         this.providers.set(provide, provide)
@@ -38,7 +38,7 @@ export class Test {
 
   compile() {
     const child = ReflectiveInjector.resolveAndCreate(Array.from(this.providers.values()))
-    return new TestModule(child)
+    return new this.TestModule(child)
   }
 }
 
@@ -61,10 +61,14 @@ export class MockProvider<T> {
   }
 }
 
-export class TestModule {
+export abstract class AbstractTestModule {
+  abstract getInstance<T>(token: Token<T>): T
+}
+
+export class TestModule implements AbstractTestModule {
   constructor(private injector: ReflectiveInjector) {}
 
-  getInstance<T>(token: ConstructorOf<T> | InjectionToken<T>): T {
+  getInstance<T>(token: Token<T>): T {
     return this.injector.get(token)
   }
 }
