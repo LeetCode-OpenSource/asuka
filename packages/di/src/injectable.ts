@@ -1,7 +1,11 @@
 import { InjectableFactory } from './injectable-factory'
 import { Injectable as InjectionInjectable, Provider } from 'injection-js'
 
-export function Injectable(config?: { providers: Provider[] }) {
+export interface InjectableConfig {
+  providers: Provider[]
+}
+
+export function Injectable(config?: InjectableConfig) {
   const providersToInject: Provider[] = []
   return function(target: any) {
     if (config) {
