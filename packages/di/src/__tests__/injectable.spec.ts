@@ -24,6 +24,19 @@ test('should get single instance', (t) => {
   t.true(instance instanceof Single)
 })
 
+test('should get same instance after add new providers', (t) => {
+  @Injectable()
+  class Single {}
+
+  class NewOne {}
+
+  const instance1 = InjectableFactory.getInstance(Single)
+  InjectableFactory.addProviders([NewOne])
+  const instance2 = InjectableFactory.getInstance(Single)
+
+  t.is(instance1, instance2)
+})
+
 test('should get dependencies', (t) => {
   @Injectable()
   class Dep {}
