@@ -1,13 +1,9 @@
 import { Observable } from 'rxjs'
-import { HttpRequest } from './http-request'
 
 export class HttpHandle<T> {
-  public req!: HttpRequest
+  constructor(private readonly response$: Observable<T>) {}
 
-  constructor(private response$: Observable<T>) {}
-
-  handle(req: HttpRequest): Observable<T> {
-    this.req = req
+  handle(): Observable<T> {
     return this.response$
   }
 }

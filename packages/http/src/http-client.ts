@@ -2,7 +2,7 @@ import { Observable, Subject } from 'rxjs'
 import { Maybe, ConstructorOf } from '@asuka/types'
 import { stringify } from 'qs'
 
-import { Interceptor, DefaultInterceptor } from './interceptor'
+import { Interceptor } from './interceptor'
 import { HttpHandle } from './http-handle'
 import { HttpRequest } from './http-request'
 
@@ -16,7 +16,7 @@ export interface QueryOptions<V = {}> {
 }
 
 export class HttpClient {
-  private interceptors: Interceptor[] = [new DefaultInterceptor()]
+  private interceptors: Interceptor[] = []
 
   constructor(private endpoint: string, private defaultHeaders: HeadersInit = {}) {}
 
@@ -30,7 +30,7 @@ export class HttpClient {
     })
   }
 
-  query<T, V>(options: QueryOptions<V>): Observable<T> {
+  query<T, V = {}>(options: QueryOptions<V>): Observable<T> {
     const body = {
       variables: options.variables,
       query: options.query,
@@ -42,7 +42,7 @@ export class HttpClient {
     )
   }
 
-  mutate<T, V>(options: QueryOptions<V>): Observable<T> {
+  mutate<T, V = {}>(options: QueryOptions<V>): Observable<T> {
     const body = {
       variables: options.variables,
       query: options.query,
@@ -80,14 +80,12 @@ export class HttpClient {
       .catch((e) => {
         _source$.error(e)
       })
-    const [, res$] = this.interceptors.reduce(
-      ([req, res$], cur) => {
+    const res$ = this.interceptors.reduce(
+      (res$, cur) => {
         const handler = new HttpHandle(res$)
-        const _res$ = cur.intercept(req, handler)
-        return [handler.req, _res$] as [HttpRequest, Observable<Response>]
+        return cur.intercept(httpRequest, handler)
       },
-      // tslint:disable-next-line no-useless-cast
-      [httpRequest, _source$ as Observable<Response>] as [HttpRequest, Observable<Response>],
+      _source$ as Observable<Response>,
     )
     return (res$ as Observable<any>) as Observable<T>
   }

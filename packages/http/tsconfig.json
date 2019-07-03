@@ -9,5 +9,13 @@
   "references": [
     { "path": "../types" },
     { "path": "../utils" }
+  ],
+  "include": [
+    "./src/**/*.ts"
+  ],
+  "exclude": [
+    "esm",
+    "lib",
+    "node_modules"
   ]
 }
