@@ -29,6 +29,7 @@
     "benchmark": "^2.1.4",
     "fast-deep-equal": "^2.0.1",
     "fast-json-stringify": "^1.15.2",
+    "tslib": "^1.10.0",
     "turbo-json-parse": "^2.3.0"
   },
   "devDependencies": {
