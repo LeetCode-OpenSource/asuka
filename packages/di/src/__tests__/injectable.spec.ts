@@ -189,3 +189,26 @@ test('should be able to inject by useClass', (t) => {
   t.true(service instanceof Service)
   t.true(service.dep instanceof Dep)
 })
+
+test('should initialize without cache #1', (t) => {
+  @Injectable()
+  class Dep {}
+
+  @Injectable()
+  class Service {
+    constructor(public readonly dep: Dep) {}
+  }
+
+  const dep = InjectableFactory.initialize<Dep>(Dep)
+  const service = InjectableFactory.getInstance(Service)
+  t.not(dep, service.dep)
+})
+
+test('should initialize without cache #2', (t) => {
+  @Injectable()
+  class Dep {}
+
+  const dep1 = InjectableFactory.initialize<Dep>(Dep)
+  const dep2 = InjectableFactory.initialize<Dep>(Dep)
+  t.not(dep1, dep2)
+})

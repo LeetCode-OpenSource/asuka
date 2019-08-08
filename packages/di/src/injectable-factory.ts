@@ -14,6 +14,10 @@ export class InjectableFactory {
     return this._getInstance(token)
   }
 
+  static initialize<T>(provider: Provider): T {
+    return this.injector.resolveAndInstantiate(provider)
+  }
+
   static addProviders(...providers: Provider[]) {
     providers.forEach((provider) => {
       this.providers.add(provider)
