@@ -100,6 +100,87 @@ test('should be able to inject by useValue', (t) => {
   t.is(service.dep, whatever)
 })
 
+test('should be able to replace provide', (t) => {
+  InjectableFactory.reset()
+  const rawClientProvide = {
+    provide: new InjectionToken('raw-client'),
+    useValue: Object.create(null),
+  }
+
+  const queryProvider = {
+    provide: new InjectionToken('query'),
+    useFactory: (client: any) =>
+      Object.create({
+        client: client,
+      }),
+    deps: [new Inject(rawClientProvide.provide)],
+  }
+
+  @Injectable({
+    providers: [rawClientProvide, queryProvider],
+  })
+  class Client {
+    constructor(@Inject(queryProvider.provide) public query: any) {}
+  }
+
+  @Injectable()
+  class Module {
+    constructor(public client: Client) {}
+  }
+
+  InjectableFactory.overrideProviders({
+    provide: rawClientProvide.provide,
+    useValue: new Date(),
+  })
+
+  const m = InjectableFactory.getInstance(Module)
+
+  t.true(m.client.query.client instanceof Date)
+})
+
+test('should throw if overrideProviders after DI system started', (t) => {
+  const rawClientProvide = {
+    provide: new InjectionToken('raw-client'),
+    useValue: Object.create(null),
+  }
+
+  const queryProvider = {
+    provide: new InjectionToken('query'),
+    useFactory: (client: any) =>
+      Object.create({
+        client: client,
+      }),
+    deps: [new Inject(rawClientProvide.provide)],
+  }
+
+  @Injectable({
+    providers: [rawClientProvide, queryProvider],
+  })
+  class Client {
+    constructor(@Inject(queryProvider.provide) public query: any) {}
+  }
+
+  @Injectable()
+  class Module {
+    constructor(public client: Client) {}
+  }
+
+  InjectableFactory.getInstance(Module)
+
+  const overrideFn = () => {
+    InjectableFactory.overrideProviders({
+      provide: rawClientProvide.provide,
+      useValue: new Date(),
+    })
+  }
+
+  t.throws(
+    overrideFn,
+    Error,
+    'Override providers after DI system start is forbidden, ensure this method was invoked before any Provider was initialized',
+  )
+})
+
 test('should be able to inject by useFactory', (t) => {
   class Dep {
     constructor(public cacheSize: number) {}
