@@ -46,7 +46,7 @@ jobs:
           command: yarn cover
       - run:
           name: coverage upload
-          command: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+          command: npx codecov -f coverage/*.json
 
   deploy:
     <<: *defaults

@@ -12,7 +12,7 @@
   "scripts": {
     "build": "shx rm -rf ./packages/{di,http,types,utils}/**/{esm,lib} && shx rm -rf ./packages/**/tsconfig.tsbuildinfo && tsc -b tsconfig.project.json && rollup --config rollup.config.js",
     "circular": "madge --circular ./packages/{http,utils,types}/src/index.ts",
-    "cover": "shx rm -rf .nyc_output && shx rm -rf coverage && nyc --reporter=html --reporter=lcov ava",
+    "cover": "shx rm -rf .nyc_output && shx rm -rf coverage && nyc --reporter=html --reporter=json ava",
     "dev": "node tools/cli/webpack-cli.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "server": "nodemon packages/test-server",
@@ -24,7 +24,7 @@
     "@types/react-dom": "^16.8.5",
     "@types/webpack": "^4.32.1",
     "ava": "^2.2.0",
-    "coveralls": "^3.0.6",
+    "codecov": "^3.5.0",
     "css-loader": "^3.2.0",
     "happypack": "^5.0.1",
     "html-webpack-plugin": "^3.2.0",
