@@ -2,6 +2,7 @@ const childProcess = require('child_process')
 const { join } = require('path')
 
 const { execOptions, extraArg } = require('./cli')
+
 const nodeModulesBinDir = join(__dirname, '..', '..', 'node_modules', '.bin')
 
 childProcess.execSync(
@@ -9,7 +10,7 @@ childProcess.execSync(
     __dirname,
     '..',
     'webpack',
-    'webpack.config.js'
+    'webpack.config.js',
   )} --progress --color ${extraArg}`,
-  execOptions
+  execOptions,
 )

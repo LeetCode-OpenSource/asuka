@@ -2,6 +2,7 @@ import { Suite } from 'benchmark'
 import { SuiteResult } from './type'
 import { jsonSchema } from './json-schema'
 import { fetchGlobalData } from './fetch-global-data'
+
 const compile = require('fast-json-stringify')
 const fastDeepEqual = require('fast-deep-equal')
 

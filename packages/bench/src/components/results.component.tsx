@@ -11,10 +11,9 @@ export interface ResultsProps {
 }
 
 export class Results extends React.PureComponent<ResultsProps> {
-
   readonly state = {
     loading: false,
-    results: []
+    results: [],
   }
 
   render() {
@@ -22,7 +21,9 @@ export class Results extends React.PureComponent<ResultsProps> {
       <>
         <ResultsTitle>
           {this.props.title}
-          <Button onClick={this.onStartBench} type="primary">Start</Button>
+          <Button onClick={this.onStartBench} type="primary">
+            Start
+          </Button>
         </ResultsTitle>
         <Table
           dataSource={this.state.results}
@@ -37,7 +38,8 @@ export class Results extends React.PureComponent<ResultsProps> {
 
   private onStartBench = () => {
     this.setState({ loading: true }, () => {
-      this.props.startBench()
+      this.props
+        .startBench()
         .then((results) => {
           requestAnimationFrame(() => {
             this.setState({ results, loading: false })
@@ -61,15 +63,15 @@ export class Results extends React.PureComponent<ResultsProps> {
         dataIndex: 'ops',
         render(text) {
           return `${Math.round(Number(text))} ops/s`
-        }
+        },
       },
       {
         title: 'rme',
         dataIndex: 'rme',
         render(text) {
           return `${Number(text).toFixed(2)} %`
-        }
-      }
+        },
+      },
     ]
   }
 }

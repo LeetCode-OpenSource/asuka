@@ -3,7 +3,8 @@ const { join } = require('path')
 
 const project = process.argv[2]
 
-const projectPath = process.cwd() === join(__dirname, '..', '..') ? join(process.cwd(), 'packages', project) : process.cwd()
+const projectPath =
+  process.cwd() === join(__dirname, '..', '..') ? join(process.cwd(), 'packages', project) : process.cwd()
 
 if (!fs.existsSync(projectPath)) {
   throw new TypeError(`packages/${project} is not existed`)
@@ -15,8 +16,8 @@ const execOptions = {
     NODE_ENV: 'development',
     PROJECT_PATH: projectPath,
     project,
-    ...process.env
-  }
+    ...process.env,
+  },
 }
 
 module.exports.execOptions = execOptions

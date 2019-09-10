@@ -23,12 +23,12 @@
   },
   "dependencies": {
     "@asuka/json-parse-wasm": "^0.2.0",
-    "@emotion/core": "^10.0.10",
-    "@emotion/styled": "^10.0.11",
-    "antd": "^3.18.2",
+    "@emotion/core": "^10.0.17",
+    "@emotion/styled": "^10.0.17",
+    "antd": "^3.23.2",
     "benchmark": "^2.1.4",
     "fast-deep-equal": "^2.0.1",
-    "fast-json-stringify": "^1.15.2",
+    "fast-json-stringify": "^1.15.4",
     "tslib": "^1.10.0",
     "turbo-json-parse": "^2.3.0"
   },

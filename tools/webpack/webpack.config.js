@@ -48,27 +48,27 @@ module.exports = {
     removeAvailableModules: false,
     removeEmptyChunks: false,
     splitChunks: false,
-    minimize: false
+    minimize: false,
   },
 
   devServer: {
     hot: true,
     proxy: {
       '/graphql': 'http://localhost:8000',
-      changeOrigin: true
-    }
+      changeOrigin: true,
+    },
   },
 
   externals: {
-    benchmark: 'Benchmark'
+    benchmark: 'Benchmark',
   },
 
   module: {
     rules: [
       {
-				test: /\.wasm$/,
-				type: "webassembly/experimental"
-			},
+        test: /\.wasm$/,
+        type: 'webassembly/experimental',
+      },
       {
         test: /\.(t|j)sx?$/,
         loader: 'happypack/loader?id=sourcemap',
@@ -93,10 +93,10 @@ module.exports = {
             loader: 'css-loader',
             options: {
               sourceMap: true,
-              modules: false
-            }
-          }
-        ]
+              modules: false,
+            },
+          },
+        ],
       },
     ],
   },
