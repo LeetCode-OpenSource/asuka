@@ -29,8 +29,8 @@
     "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
   },
   "dependencies": {
-    "graphql": "^14.5.4",
-    "koa": "^2.8.1",
+    "graphql": "^14.5.8",
+    "koa": "^2.11.0",
     "koa-graphql": "^0.8.0",
     "koa-router": "^7.4.0"
   }
