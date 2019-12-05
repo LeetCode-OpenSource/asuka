@@ -80,13 +80,10 @@ export class HttpClient {
       .catch((e) => {
         _source$.error(e)
       })
-    const res$ = this.interceptors.reduce(
-      (res$, cur) => {
-        const handler = new HttpHandle(res$)
-        return cur.intercept(httpRequest, handler)
-      },
-      _source$ as Observable<Response>,
-    )
+    const res$ = this.interceptors.reduce((res$, cur) => {
+      const handler = new HttpHandle(res$)
+      return cur.intercept(httpRequest, handler)
+    }, _source$ as Observable<Response>)
     return (res$ as Observable<any>) as Observable<T>
   }
 }
