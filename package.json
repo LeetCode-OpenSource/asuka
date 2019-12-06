@@ -103,5 +103,8 @@
     "exclude": [
       "packages/**/*.spec.ts"
     ]
+  },
+  "resolutions": {
+    "qs": "^6.9.1"
   }
 }

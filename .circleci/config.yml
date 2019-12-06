@@ -31,9 +31,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/asuka
-      - run:
-          name: yarn-install
-          command: yarn install
       - run: 
           name: lint
           command: yarn lint
