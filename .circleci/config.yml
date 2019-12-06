@@ -15,17 +15,13 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: yarn-with-greenkeeper
-          command: |
-            sudo yarn global add greenkeeper-lockfile@1
-            yarn
+          name: yarn
+          command: yarn install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ~/.cache/yarn
-      - run: greenkeeper-lockfile-update
       - run: yarn build
-      - run: greenkeeper-lockfile-upload
       - persist_to_workspace:
           root: ~/asuka
           paths:
