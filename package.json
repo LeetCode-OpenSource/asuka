@@ -16,7 +16,6 @@
     "dev": "node tools/cli/webpack-cli.js",
     "lint": "eslint . -c .eslintrc.yml --ext .js,.ts,tsx",
     "lint:cache": "yarn lint --cache",
-    "server": "nodemon packages/test-server",
     "test": "ava",
     "typecheck": "lerna run typecheck"
   },

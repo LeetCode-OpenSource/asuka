@@ -15,7 +15,7 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
-          name: yarn
+          name: yarn-install
           command: yarn install
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
@@ -25,12 +25,15 @@ jobs:
       - persist_to_workspace:
           root: ~/asuka
           paths:
-            - ./*
+            - .
   test:
     <<: *defaults
     steps:
       - attach_workspace:
           at: ~/asuka
+      - run:
+          name: yarn-install
+          command: yarn install
       - run: 
           name: lint
           command: yarn lint

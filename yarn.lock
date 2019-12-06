@@ -8880,9 +8880,9 @@ pseudomap@^1.0.2:
   integrity sha1-8FKijacOYYkX7wqKw0wa5aaChrM=
 
 psl@^1.1.24:
-  version "1.5.0"
-  resolved "https://registry.npmjs.org/psl/-/psl-1.5.0.tgz#47fd1292def7fdb1e138cd78afa8814cebcf7b13"
-  integrity sha512-4vqUjKi2huMu1OJiLhi3jN6jeeKvMZdI1tYgi/njW5zV52jNLgSAZSdN16m9bJFe61/cT8ulmw4qFitV9QRsEA==
+  version "1.6.0"
+  resolved "https://registry.npmjs.org/psl/-/psl-1.6.0.tgz#60557582ee23b6c43719d9890fb4170ecd91e110"
+  integrity sha512-SYKKmVel98NCOYXpkwUqZqh0ahZeeKfmisiLIcEZdsb+WbLv02g/dI5BUmZnIyOe7RzZtLax81nnb2HbvC2tzA==
 
 pstree.remy@^1.1.7:
   version "1.1.7"
@@ -9105,9 +9105,9 @@ rc-collapse@~1.11.3:
     shallowequal "^1.1.0"
 
 rc-dialog@~7.5.2:
-  version "7.5.13"
-  resolved "https://registry.npmjs.org/rc-dialog/-/rc-dialog-7.5.13.tgz#ad3bdc668381e77977b6c4689a2b9e2687961a70"
-  integrity sha512-tmubIipW/qoCmRlHHV8tpepDaFhuhk+SeSFSyRhNKW4mYgflsEYQmYWilyCJHy6UzKl84bSyFvJskhc1z1Hniw==
+  version "7.5.14"
+  resolved "https://registry.npmjs.org/rc-dialog/-/rc-dialog-7.5.14.tgz#3e85ed8a6f3ae17cf5082b590b9c366f70ebf5dc"
+  integrity sha512-gmEukl2iU2K74G2g66rVH6yOCwvLbVWqmEClbRO47Iec/stFyaDXCkvJmBb5vJcAWomQwaU4yZ9muRBW4u9AfA==
   dependencies:
     babel-runtime "6.x"
     rc-animate "2.x"
@@ -9374,9 +9374,9 @@ rc-tooltip@^3.7.0, rc-tooltip@~3.7.3:
     rc-trigger "^2.2.2"
 
 rc-tree-select@~2.9.1:
-  version "2.9.2"
-  resolved "https://registry.npmjs.org/rc-tree-select/-/rc-tree-select-2.9.2.tgz#036f795104c508504e8d4f7d64b3bb968821bd0e"
-  integrity sha512-JkI1ojOiot3FH2+/KVVMPms3YfrA0xu6sQDlzH3NDV6uDOIIyR7vfW1z58TFU8PM0aCmF6H/h6aPefqSqTyseA==
+  version "2.9.3"
+  resolved "https://registry.npmjs.org/rc-tree-select/-/rc-tree-select-2.9.3.tgz#6b6bcec864d085ebda50a9fbe26870560a56ca35"
+  integrity sha512-G5+gpGURxhMLTTN9X3TIyR3WThSHOWHbCChwtO+jFNZ0paLyillI0z4G+h/75oSYx/fkF5DNYIMWF1nZnwM2Dw==
   dependencies:
     classnames "^2.2.1"
     dom-scroll-into-view "^1.2.1"
