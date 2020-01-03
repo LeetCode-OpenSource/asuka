@@ -34,6 +34,20 @@ test.serial('should get single instance', (t) => {
   t.true(instance instanceof Single)
 })
 
+test.serial('should get same instance after add new provider', (t) => {
+  @Injectable()
+  class Single {}
+
+  class NewOne {}
+
+  const injector = t.context.injectableFactory.resolveProviders()
+  const instance1 = injector.getInstance(Single)
+  t.context.injectableFactory.addProvider(NewOne)
+  const instance2 = injector.getInstance(Single)
+
+  t.is(instance1, instance2)
+})
+
 test.serial('should get same instance after add new providers', (t) => {
   @Injectable()
   class Single {}

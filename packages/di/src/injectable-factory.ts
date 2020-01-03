@@ -21,6 +21,11 @@ export class InjectableFactory {
     this.reflectiveProviders = reflectiveProviders
   }
 
+  addProvider<T>(provider: Provider<T>): Provider<T> {
+    this.providers.add(provider)
+    return provider
+  }
+
   addProviders(...providers: Provider[]) {
     providers.forEach((provider) => {
       this.providers.add(provider)
