@@ -3,7 +3,7 @@ parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaFeatures:
     jsx: true
-  ecmaVersion: 2018
+  ecmaVersion: 2019
   sourceType: module
 
 env:
@@ -26,7 +26,7 @@ extends:
 settings:
   react:
     pragma: React
-    version: 16.8.6
+    version: 16.12.0
 
 rules: 
   # 0 = off, 1 = warn, 2 = error

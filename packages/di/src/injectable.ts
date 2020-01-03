@@ -1,4 +1,4 @@
-import { InjectableFactory } from './injectable-factory'
+import { rootInjectableFactory } from './injectable-factory-instance'
 import { Injectable as InjectionInjectable, Provider } from 'injection-js'
 
 export interface InjectableConfig {
@@ -12,7 +12,7 @@ export function Injectable(config?: InjectableConfig) {
       providersToInject.push(...config.providers)
     }
     providersToInject.push(target)
-    InjectableFactory.addProviders(...providersToInject)
+    rootInjectableFactory.addProviders(...providersToInject)
     return InjectionInjectable()(target)
   }
 }
