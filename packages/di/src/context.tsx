@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useMemo, memo } from 'react'
-import { Provider, Type } from 'injection-js'
 
 import { InjectableFactory } from './injectable-factory'
 import { rootInjectableFactory } from './injectable-factory-instance'
+import { Provider } from './type'
 
 const _InjectableContext = createContext<InjectableFactory>(rootInjectableFactory)
 
@@ -31,7 +31,7 @@ export const InjectionProvidersContext = memo<{ providers: Provider[]; children:
   },
 )
 
-export function useInstance<T>(provider: Type<T>): T {
+export function useInstance<T>(provider: Provider<T>): T {
   const childInjector = useContext(_InjectableContext)
 
   return childInjector.getInstance(provider)

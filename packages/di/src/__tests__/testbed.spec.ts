@@ -35,7 +35,7 @@ test('should override when createTestingModule', (t) => {
 
   const token = new InjectionToken<typeof whatever>('replacable')
 
-  const provider: ValueProvider = {
+  const provider: ValueProvider<Function> = {
     useValue: replacement,
     provide: token,
   }
@@ -65,7 +65,7 @@ test('should override by overrideProvider method', (t) => {
 
   const token = new InjectionToken<typeof whatever>('replacabel')
 
-  const provider: ValueProvider = {
+  const provider: ValueProvider<typeof whatever> = {
     useValue: replacement,
     provide: token,
   }
@@ -111,7 +111,7 @@ test('should override class', (t) => {
 test('should ovrride factory', (t) => {
   const token = new InjectionToken<string>('whatever')
 
-  const provider: FactoryProvider = {
+  const provider: FactoryProvider<'1'> = {
     provide: token,
     useFactory: () => {
       return '1'

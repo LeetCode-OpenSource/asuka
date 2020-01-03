@@ -1,4 +1,6 @@
-import { ReflectiveInjector, Provider, ResolvedReflectiveProvider, Type, InjectionToken } from 'injection-js'
+import { ReflectiveInjector, ResolvedReflectiveProvider } from 'injection-js'
+
+import { Provider, ValueProvider } from './type'
 
 export class InjectableFactory {
   // @internal
@@ -58,19 +60,11 @@ export class InjectableFactory {
     return this
   }
 
-  getInstance<T>(constructor: Type<T>): T {
-    return this._getInstance(constructor)
-  }
-
-  getInstanceByToken<T>(token: InjectionToken<T>): T {
-    return this._getInstance(token)
+  getInstance<T>(provider: Provider<T>): T {
+    return this._injector!.get((provider as ValueProvider<T>).provide ?? provider)
   }
 
   initialize<T>(provider: Provider): T {
     return this._injector!.resolveAndInstantiate(provider)
-  }
-
-  private _getInstance<T>(token: Type<T> | InjectionToken<T>): T {
-    return this._injector!.get(token)
   }
 }

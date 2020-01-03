@@ -98,7 +98,7 @@ test.serial('should be able to inject by useValue', (t) => {
   function whatever() {}
   const token = new InjectionToken<typeof whatever>('whatever')
 
-  const provider: ValueProvider = {
+  const provider: ValueProvider<typeof whatever> = {
     provide: token,
     useValue: whatever,
   }
@@ -164,7 +164,7 @@ test.serial('should be able to inject by useFactory', (t) => {
 
   const token = new InjectionToken<Dep>('whatever')
 
-  const provider: FactoryProvider = {
+  const provider: FactoryProvider<Dep> = {
     provide: token,
     useFactory() {
       return new Dep(cacheSize)
@@ -197,7 +197,7 @@ test.serial('should be able to resolve deps from useFactory', (t) => {
 
   const token = new InjectionToken<Dep>('whatever')
 
-  const provider: FactoryProvider = {
+  const provider: FactoryProvider<Dep> = {
     provide: token,
     useFactory(depTwo: DepTwo) {
       return new Dep(cacheSize, depTwo)
@@ -230,7 +230,7 @@ test.serial('should be able to inject by useClass', (t) => {
 
   const token = new InjectionToken<Dep>('whatever')
 
-  const provider: ClassProvider = {
+  const provider: ClassProvider<Dep> = {
     provide: token,
     useClass: Dep,
   }
@@ -283,7 +283,7 @@ test.serial('should resolve and create new injector', (t) => {
 
   const token = new InjectionToken<Dep>('whatever')
 
-  const provider: ClassProvider = {
+  const provider: ClassProvider<Dep> = {
     provide: token,
     useClass: Dep,
   }
@@ -295,7 +295,7 @@ test.serial('should resolve and create new injector', (t) => {
     constructor(@Inject(token) public dep: Dep) {}
   }
 
-  const replacementProvider: ValueProvider = {
+  const replacementProvider: ValueProvider<1> = {
     provide: token,
     useValue: 1,
   }

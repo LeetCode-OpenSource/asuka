@@ -1,5 +1,7 @@
+import { Injectable as InjectionInjectable } from 'injection-js'
+import { Provider } from './type'
+
 import { rootInjectableFactory } from './injectable-factory-instance'
-import { Injectable as InjectionInjectable, Provider } from 'injection-js'
 
 export interface InjectableConfig {
   providers: Provider[]
