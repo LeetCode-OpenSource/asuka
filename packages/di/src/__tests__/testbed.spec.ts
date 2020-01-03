@@ -1,20 +1,12 @@
 import 'reflect-metadata'
 import test from 'ava'
-
-import {
-  Inject,
-  Test,
-  Injectable,
-  InjectableFactory,
-  InjectionToken,
-  ValueProvider,
-  FactoryProvider,
-  AbstractTestModule,
-} from '../index'
 import { ReflectiveInjector } from 'injection-js'
 
+import { Inject, Test, Injectable, InjectionToken, ValueProvider, FactoryProvider, AbstractTestModule } from '../index'
+import { rootInjectableFactory } from '../injectable-factory-instance'
+
 test.afterEach(() => {
-  InjectableFactory.reset()
+  rootInjectableFactory.reset()
 })
 
 test('should resolve dep instance', (t) => {

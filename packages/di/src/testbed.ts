@@ -1,5 +1,5 @@
-import { InjectableFactory } from './index'
 import { ReflectiveInjector, InjectionToken, Type, Provider, ClassProvider } from 'injection-js'
+import { rootInjectableFactory } from './injectable-factory-instance'
 
 export type Token<T> = Type<T> | InjectionToken<T>
 
@@ -18,7 +18,7 @@ export class Test<M extends AbstractTestModule> {
   providers: Map<Token<any>, Provider> = new Map()
 
   private constructor(providers: Provider[], private TestModule: Type<M>) {
-    for (const provide of InjectableFactory.providers) {
+    for (const provide of rootInjectableFactory.resolveProviders().providers) {
       if (typeof provide === 'function') {
         this.providers.set(provide, provide)
       } else {

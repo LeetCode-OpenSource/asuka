@@ -1,42 +1,50 @@
-import { ReflectiveInjector, InjectionToken, Provider, Type } from 'injection-js'
+import { ReflectiveInjector, Provider, ResolvedReflectiveProvider, Type, InjectionToken } from 'injection-js'
 
 export class InjectableFactory {
   // @internal
-  static providers = new Set<any>()
+  providers: Set<Provider>
   // @internal
-  static injector = ReflectiveInjector.resolveAndCreate([])
+  reflectiveProviders: ResolvedReflectiveProvider[]
 
-  private static _hasResolved = false
+  private _injector: ReflectiveInjector | null = null
 
-  static getInstance<T>(constructor: Type<T>): T {
-    return this._getInstance(constructor)
+  private resolved = false
+
+  constructor(
+    providers: Set<Provider> = new Set(),
+    reflectiveProviders: ResolvedReflectiveProvider[] = [],
+    private readonly parent: InjectableFactory | null = null,
+  ) {
+    this.providers = providers
+    this.reflectiveProviders = reflectiveProviders
   }
 
-  static getInstanceByToken<T>(token: InjectionToken<T>): T {
-    return this._getInstance(token)
-  }
-
-  static initialize<T>(provider: Provider): T {
-    return this.injector.resolveAndInstantiate(provider)
-  }
-
-  static addProviders(...providers: Provider[]) {
+  addProviders(...providers: Provider[]) {
     providers.forEach((provider) => {
       this.providers.add(provider)
     })
-    this.injector = this.injector.resolveAndCreateChild(providers)
+    return this
   }
 
-  static overrideProviders(...providers: Provider[]) {
-    if (this._hasResolved) {
-      throw new Error(
-        'Override providers after DI system start is forbidden, ensure this method was invoked before any Provider was initialized',
-      )
+  overrideProviders(...providers: Provider[]) {
+    const newProviders = new Set<Provider>(providers)
+    return new InjectableFactory(newProviders, [], this)
+  }
+
+  resolveProviders() {
+    if (this.parent && !this.parent.resolved) {
+      this.parent.resolveProviders()
     }
-    providers.forEach((provider) => {
-      this.providers.add(provider)
-    })
-    this.injector = ReflectiveInjector.resolveAndCreate(Array.from(this.providers))
+    this.reflectiveProviders = ReflectiveInjector.resolve(Array.from(this.providers))
+    let parent = this.parent
+    const reflectiveProviders = Array.from(this.reflectiveProviders)
+    while (parent) {
+      reflectiveProviders.push(...parent.reflectiveProviders)
+      parent = parent.parent
+    }
+    this._injector = ReflectiveInjector.fromResolvedProviders(reflectiveProviders)
+    this.resolved = true
+    return this
   }
 
   /**
@@ -44,14 +52,25 @@ export class InjectableFactory {
    * ## unit test only
    * **do not use this method in application**
    */
-  static reset() {
-    this._hasResolved = false
+  reset() {
     this.providers.clear()
-    this.injector = ReflectiveInjector.resolveAndCreate([])
+    this.resolved = false
+    return this
   }
 
-  private static _getInstance<T>(token: Type<T> | InjectionToken<T>): T {
-    this._hasResolved = true
-    return this.injector.get(token)
+  getInstance<T>(constructor: Type<T>): T {
+    return this._getInstance(constructor)
+  }
+
+  getInstanceByToken<T>(token: InjectionToken<T>): T {
+    return this._getInstance(token)
+  }
+
+  initialize<T>(provider: Provider): T {
+    return this._injector!.resolveAndInstantiate(provider)
+  }
+
+  private _getInstance<T>(token: Type<T> | InjectionToken<T>): T {
+    return this._injector!.get(token)
   }
 }
