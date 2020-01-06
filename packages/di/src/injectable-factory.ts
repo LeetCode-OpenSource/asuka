@@ -21,7 +21,7 @@ export class InjectableFactory {
     this.reflectiveProviders = reflectiveProviders
   }
 
-  addProvider<T>(provider: Provider<T>): Provider<T> {
+  addProvider<U, T extends Provider<U>>(provider: T): T {
     this.providers.add(provider)
     return provider
   }
@@ -39,6 +39,9 @@ export class InjectableFactory {
   }
 
   resolveProviders() {
+    if (this.resolved) {
+      return this
+    }
     if (this.parent && !this.parent.resolved) {
       this.parent.resolveProviders()
     }

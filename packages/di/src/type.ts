@@ -4,7 +4,7 @@ export interface ValueProvider<T> {
   /**
    * An injection token. (Typically an instance of `Type` or `InjectionToken`, but can be `any`).
    */
-  provide: InjectionToken<T>
+  provide: InjectionToken<T> | Type<T>
   /**
    * The value to inject.
    */
@@ -24,7 +24,7 @@ export interface FactoryProvider<T, Deps extends Array<any> = any[]> {
   /**
    * An injection token. (Typically an instance of `Type` or `InjectionToken`, but can be `any`).
    */
-  provide: InjectionToken<T>
+  provide: InjectionToken<T> | Type<T>
   /**
    * A function to invoke to create a value for this `token`. The function is invoked with
    * resolved values of `token`s in the `deps` field.
@@ -50,7 +50,7 @@ export interface ClassProvider<T> {
   /**
    * An injection token. (Typically an instance of `Type` or `InjectionToken`, but can be `any`).
    */
-  provide: InjectionToken<T>
+  provide: Type<T> | InjectionToken<T>
   /**
    * Class to instantiate for the `token`.
    */
@@ -70,7 +70,7 @@ export interface ExistingProvider<T> {
   /**
    * An injection token. (Typically an instance of `Type` or `InjectionToken`, but can be `any`).
    */
-  provide: InjectionToken<T>
+  provide: InjectionToken<T> | Type<T>
   /**
    * Existing `token` to return. (equivalent to `injector.get(useExisting)`)
    */
