@@ -1,20 +1,11 @@
-import { Injectable as InjectionInjectable } from 'injection-js'
-import { Provider } from './type'
+import { rootInjector } from './root-injector'
 
-import { rootInjectableFactory } from './injectable-factory-instance'
-
-export interface InjectableConfig {
-  providers: Provider[]
-}
-
-export function Injectable(config?: InjectableConfig) {
-  const providersToInject: Provider[] = []
+export function Injectable() {
   return function(target: any) {
-    if (config) {
-      providersToInject.push(...config.providers)
-    }
-    providersToInject.push(target)
-    rootInjectableFactory.addProviders(...providersToInject)
-    return InjectionInjectable()(target)
+    rootInjector.addProvider({
+      useClass: target,
+      provide: target,
+    })
+    return target
   }
 }

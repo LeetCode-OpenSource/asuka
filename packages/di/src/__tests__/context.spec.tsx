@@ -6,8 +6,6 @@ import test from 'ava'
 
 import { InjectionProvidersContext, InjectableContext, useInstance } from '../context'
 import { Injectable } from '../injectable'
-import { rootInjectableFactory } from '../injectable-factory-instance'
-import { ValueProvider } from 'injection-js'
 
 function render(component: React.ReactElement) {
   return create(<InjectableContext>{component}</InjectableContext>)
@@ -25,10 +23,6 @@ function inject() {
   return { Module, Service }
 }
 
-test.beforeEach(() => {
-  rootInjectableFactory.reset()
-})
-
 test('should getInstance', (t) => {
   const { Module, Service } = inject()
   const TestComponent = () => {
@@ -42,7 +36,7 @@ test('should getInstance', (t) => {
 
 test('should override provider', (t) => {
   const { Module, Service } = inject()
-  const mockService: ValueProvider = {
+  const mockService = {
     provide: Service,
     useValue: 1,
   }
@@ -61,11 +55,11 @@ test('should override provider', (t) => {
 
 test('Muti providers context', (t) => {
   const { Module, Service } = inject()
-  const mockService1: ValueProvider = {
+  const mockService1 = {
     provide: Service,
     useValue: 1,
   }
-  const mockService2: ValueProvider = {
+  const mockService2 = {
     provide: Service,
     useValue: 2,
   }
@@ -95,11 +89,11 @@ test('Muti providers context', (t) => {
 
 test('Nested providers', (t) => {
   const { Module, Service } = inject()
-  const mockService1: ValueProvider = {
+  const mockService1 = {
     provide: Service,
     useValue: 1,
   }
-  const mockService2: ValueProvider = {
+  const mockService2 = {
     provide: Service,
     useValue: 2,
   }

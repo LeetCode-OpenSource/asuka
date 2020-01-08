@@ -1,68 +1,51 @@
 import 'reflect-metadata'
-import ava, { TestInterface } from 'ava'
+import test from 'ava'
 
-import {
-  Inject,
-  InjectionToken,
-  Injectable,
-  ValueProvider,
-  FactoryProvider,
-  ClassProvider,
-  rootInjectableFactory,
-} from '../index'
-import { InjectableFactory } from '../injectable-factory'
-
-const test = ava as TestInterface<{
-  injectableFactory: InjectableFactory
-}>
-
-test.beforeEach((t) => {
-  t.context.injectableFactory = rootInjectableFactory.overrideProviders()
-})
+import { Inject, InjectionToken, Injectable, rootInjector } from '../index'
 
 test.afterEach(() => {
-  rootInjectableFactory.reset()
+  rootInjector.reset()
 })
 
-test.serial('should get single instance', (t) => {
+test('should get single instance', (t) => {
   @Injectable()
   class Single {}
 
-  const injector = t.context.injectableFactory.resolveProviders()
-  const instance = injector.getInstance(Single)
+  const instance = rootInjector.getInstance(Single)
 
   t.true(instance instanceof Single)
 })
 
-test.serial('should get same instance after add new provider', (t) => {
+test('should get same instance after add new provider', (t) => {
   @Injectable()
   class Single {}
 
   class NewOne {}
 
-  const injector = t.context.injectableFactory.resolveProviders()
-  const instance1 = injector.getInstance(Single)
-  t.context.injectableFactory.addProvider(NewOne)
-  const instance2 = injector.getInstance(Single)
+  const instance1 = rootInjector.getInstance(Single)
+  rootInjector.addProvider(NewOne)
+  const instance2 = rootInjector.getInstance(Single)
 
   t.is(instance1, instance2)
 })
 
-test.serial('should get same instance after add new providers', (t) => {
+test('should get same instance after override providers', (t) => {
   @Injectable()
   class Single {}
 
   class NewOne {}
 
-  const injector = t.context.injectableFactory.resolveProviders()
+  class AddedOne {}
+
+  const injector = rootInjector
+  const addedInjector = injector.createChild([AddedOne, NewOne])
   const instance1 = injector.getInstance(Single)
-  t.context.injectableFactory.addProviders(NewOne)
-  const instance2 = injector.getInstance(Single)
+  const instance2 = addedInjector.getInstance(Single)
 
   t.is(instance1, instance2)
 })
 
-test.serial('should get dependencies', (t) => {
+test('should get dependencies', (t) => {
   @Injectable()
   class Dep {}
 
@@ -76,7 +59,7 @@ test.serial('should get dependencies', (t) => {
     constructor(public dep: Dep, public depTwo: DepTwo) {}
   }
 
-  const injector = t.context.injectableFactory.resolveProviders()
+  const injector = rootInjector
   const service = injector.getInstance(Service)
 
   t.true(injector.getInstance(Dep) instanceof Dep)
@@ -84,7 +67,7 @@ test.serial('should get dependencies', (t) => {
   t.true(service instanceof Service)
 })
 
-test.serial('should singleton by default', (t) => {
+test('should singleton by default', (t) => {
   @Injectable()
   class Dep {}
 
@@ -98,7 +81,7 @@ test.serial('should singleton by default', (t) => {
     constructor(public dep: Dep, public depTwo: DepTwo) {}
   }
 
-  const injector = t.context.injectableFactory.resolveProviders()
+  const injector = rootInjector
 
   const service = injector.getInstance(Service)
   const dep = injector.getInstance(Dep)
@@ -108,46 +91,42 @@ test.serial('should singleton by default', (t) => {
   t.is(service.depTwo, depTwo)
 })
 
-test.serial('should be able to inject by useValue', (t) => {
+test('should be able to inject by useValue', (t) => {
   function whatever() {}
   const token = new InjectionToken<typeof whatever>('whatever')
 
-  const provider: ValueProvider<typeof whatever> = {
+  rootInjector.addProvider({
     provide: token,
     useValue: whatever,
-  }
-
-  @Injectable({
-    providers: [provider],
   })
+
+  @Injectable()
   class Service {
     constructor(@Inject(token) public dep: typeof whatever) {}
   }
 
-  const injector = t.context.injectableFactory.resolveProviders()
+  const injector = rootInjector
   const service = injector.getInstance(Service)
   t.true(service instanceof Service)
   t.is(service.dep, whatever)
 })
 
-test.serial('should be able to replace provide', (t) => {
-  const rawClientProvide = {
+test('should be able to replace provide', (t) => {
+  const rawClientProvide = rootInjector.addProvider({
     provide: new InjectionToken('raw-client'),
     useValue: Object.create(null),
-  }
+  })
 
-  const queryProvider = {
+  const queryProvider = rootInjector.addProvider({
     provide: new InjectionToken('query'),
     useFactory: (client: any) =>
       Object.create({
         client: client,
       }),
-    deps: [new Inject(rawClientProvide.provide)],
-  }
-
-  @Injectable({
-    providers: [rawClientProvide, queryProvider],
+    deps: [rawClientProvide.provide],
   })
+
+  @Injectable()
   class Client {
     constructor(@Inject(queryProvider.provide) public query: any) {}
   }
@@ -157,19 +136,21 @@ test.serial('should be able to replace provide', (t) => {
     constructor(public client: Client) {}
   }
 
-  const injector = t.context.injectableFactory
-    .overrideProviders({
+  const childInjector = rootInjector.createChild([
+    {
       provide: rawClientProvide.provide,
       useValue: new Date(),
-    })
-    .resolveProviders()
+    },
+  ])
 
-  const m = injector.getInstance(Module)
+  const oldM = rootInjector.getInstance(Module)
+  const m = childInjector.getInstance(Module)
 
+  t.not(oldM, m)
   t.true(m.client.query.client instanceof Date)
 })
 
-test.serial('should be able to inject by useFactory', (t) => {
+test('should be able to inject by useFactory', (t) => {
   class Dep {
     constructor(public cacheSize: number) {}
   }
@@ -178,28 +159,27 @@ test.serial('should be able to inject by useFactory', (t) => {
 
   const token = new InjectionToken<Dep>('whatever')
 
-  const provider: FactoryProvider<Dep> = {
+  rootInjector.addProvider({
     provide: token,
     useFactory() {
       return new Dep(cacheSize)
     },
-  }
-
-  @Injectable({
-    providers: [provider],
   })
+
+  @Injectable()
   class Service {
     constructor(@Inject(token) public dep: Dep) {}
   }
 
-  const injector = t.context.injectableFactory.resolveProviders()
+  const injector = rootInjector
   const service = injector.getInstance(Service)
 
   t.true(service.dep instanceof Dep)
   t.is(service.dep.cacheSize, cacheSize)
 })
 
-test.serial('should be able to resolve deps from useFactory', (t) => {
+test('should be able to resolve deps from useFactory', (t) => {
+  @Injectable()
   class Dep {
     constructor(public cacheSize: number, public depTwo: DepTwo) {}
   }
@@ -211,22 +191,20 @@ test.serial('should be able to resolve deps from useFactory', (t) => {
 
   const token = new InjectionToken<Dep>('whatever')
 
-  const provider: FactoryProvider<Dep> = {
+  rootInjector.addProvider({
     provide: token,
     useFactory(depTwo: DepTwo) {
       return new Dep(cacheSize, depTwo)
     },
     deps: [DepTwo],
-  }
-
-  @Injectable({
-    providers: [provider],
   })
+
+  @Injectable()
   class Service {
     constructor(@Inject(token) public dep: Dep) {}
   }
 
-  const injector = t.context.injectableFactory.resolveProviders()
+  const injector = rootInjector
 
   const service = injector.getInstance(Service)
   const depTwo = injector.getInstance(DepTwo)
@@ -237,33 +215,32 @@ test.serial('should be able to resolve deps from useFactory', (t) => {
   t.is(service.dep.depTwo, depTwo)
 })
 
-test.serial('should be able to inject by useClass', (t) => {
+test('should be able to inject by useClass', (t) => {
+  @Injectable()
   class Dep {
     constructor() {}
   }
 
   const token = new InjectionToken<Dep>('whatever')
 
-  const provider: ClassProvider<Dep> = {
+  rootInjector.addProvider({
     provide: token,
     useClass: Dep,
-  }
-
-  @Injectable({
-    providers: [provider],
   })
+
+  @Injectable()
   class Service {
     constructor(@Inject(token) public dep: Dep) {}
   }
 
-  const injector = t.context.injectableFactory.resolveProviders()
+  const injector = rootInjector
   const service = injector.getInstance(Service)
 
   t.true(service instanceof Service)
   t.true(service.dep instanceof Dep)
 })
 
-test.serial('should initialize without cache #1', (t) => {
+test('should initialize without cache #1', (t) => {
   @Injectable()
   class Dep {}
 
@@ -272,49 +249,47 @@ test.serial('should initialize without cache #1', (t) => {
     constructor(public readonly dep: Dep) {}
   }
 
-  const injector = t.context.injectableFactory.resolveProviders()
+  const injector = rootInjector
 
-  const dep = injector.initialize<Dep>(Dep)
+  const dep = injector.resolveAndInstantiate<Dep>(Dep)
   const service = injector.getInstance(Service)
   t.not(dep, service.dep)
 })
 
-test.serial('should initialize without cache #2', (t) => {
+test('should initialize without cache #2', (t) => {
   @Injectable()
   class Dep {}
 
-  const injector = t.context.injectableFactory.resolveProviders()
+  const injector = rootInjector
 
-  const dep1 = injector.initialize<Dep>(Dep)
-  const dep2 = injector.initialize<Dep>(Dep)
+  const dep1 = injector.resolveAndInstantiate(Dep)
+  const dep2 = injector.resolveAndInstantiate(Dep)
   t.not(dep1, dep2)
 })
 
-test.serial('should resolve and create new injector', (t) => {
+test('should resolve and create new injector', (t) => {
   class Dep {
     constructor() {}
   }
 
   const token = new InjectionToken<Dep>('whatever')
 
-  const provider: ClassProvider<Dep> = {
+  rootInjector.addProvider({
     provide: token,
     useClass: Dep,
-  }
-
-  @Injectable({
-    providers: [provider],
   })
+
+  @Injectable()
   class Service {
     constructor(@Inject(token) public dep: Dep) {}
   }
 
-  const replacementProvider: ValueProvider<1> = {
+  const replacementProvider = {
     provide: token,
     useValue: 1,
   }
 
-  const newInjector = t.context.injectableFactory.overrideProviders(replacementProvider).resolveProviders()
+  const newInjector = rootInjector.createChild([replacementProvider])
   const service = newInjector.getInstance(Service)
   t.is(service.dep, 1)
 })

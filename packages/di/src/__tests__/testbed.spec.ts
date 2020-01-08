@@ -1,13 +1,9 @@
 import 'reflect-metadata'
 import test from 'ava'
-import { ReflectiveInjector } from 'injection-js'
 
-import { Inject, Test, Injectable, InjectionToken, ValueProvider, FactoryProvider, AbstractTestModule } from '../index'
-import { rootInjectableFactory } from '../injectable-factory-instance'
-
-test.afterEach(() => {
-  rootInjectableFactory.reset()
-})
+import { Inject, Test, Injectable, InjectionToken, AbstractTestModule } from '../index'
+import { rootInjector } from '../root-injector'
+import { Injector } from '../injector'
 
 test('should resolve dep instance', (t) => {
   @Injectable()
@@ -35,14 +31,12 @@ test('should override when createTestingModule', (t) => {
 
   const token = new InjectionToken<typeof whatever>('replacable')
 
-  const provider: ValueProvider<Function> = {
+  rootInjector.addProvider({
     useValue: replacement,
     provide: token,
-  }
-
-  @Injectable({
-    providers: [provider],
   })
+
+  @Injectable()
   class Service {
     constructor(@Inject(token) public dep: typeof whatever) {}
   }
@@ -65,14 +59,12 @@ test('should override by overrideProvider method', (t) => {
 
   const token = new InjectionToken<typeof whatever>('replacabel')
 
-  const provider: ValueProvider<typeof whatever> = {
+  rootInjector.addProvider({
     useValue: replacement,
     provide: token,
-  }
-
-  @Injectable({
-    providers: [provider],
   })
+
+  @Injectable()
   class Service {
     constructor(@Inject(token) public dep: typeof whatever) {}
   }
@@ -96,6 +88,7 @@ test('should override class', (t) => {
     constructor(public dep: Dep) {}
   }
 
+  @Injectable()
   class BetterDep {}
 
   const testModule = Test.createTestingModule()
@@ -111,16 +104,14 @@ test('should override class', (t) => {
 test('should ovrride factory', (t) => {
   const token = new InjectionToken<string>('whatever')
 
-  const provider: FactoryProvider<'1'> = {
+  rootInjector.addProvider({
     provide: token,
     useFactory: () => {
       return '1'
     },
-  }
-
-  @Injectable({
-    providers: [provider],
   })
+
+  @Injectable()
   class Service {
     constructor(@Inject(token) public fun: string) {}
   }
@@ -137,14 +128,10 @@ test('should ovrride factory', (t) => {
 
 test('should override TestModule', (t) => {
   class BetterTestModule implements AbstractTestModule {
-    private injector!: ReflectiveInjector
+    private injector!: Injector
 
     getInstance<T>(target: any): T {
-      return this.injector.get(target)
-    }
-
-    getInstanceByToken<T>(token: any): T {
-      return this.injector.get(token)
+      return this.injector.getInstance(target)
     }
   }
 

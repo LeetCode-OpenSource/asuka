@@ -6051,11 +6051,6 @@ init-package-json@^1.10.3:
     validate-npm-package-license "^3.0.1"
     validate-npm-package-name "^3.0.0"
 
-injection-js@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.npmjs.org/injection-js/-/injection-js-2.2.2.tgz#5bfbeb951ab7bc8e1f359dea5d20e10ed4b84cef"
-  integrity sha512-9K4fW2NNPG3JCvORx5G/T6q/PZYIr43RFgxBvtk3OV4omh5iqvpK4cChuBfhgPnRbXSgZRfuROh0XG5KNA8Xlg==
-
 inquirer@^6.2.0:
   version "6.5.2"
   resolved "https://registry.npmjs.org/inquirer/-/inquirer-6.5.2.tgz#ad50942375d036d327ff528c08bd5fab089928ca"

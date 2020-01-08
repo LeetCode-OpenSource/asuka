@@ -1,30 +1,33 @@
-import { InjectionToken, Type } from 'injection-js'
+export class InjectionToken<T> {
+  readonly _phantom?: T
+
+  constructor(private readonly desc: string) {}
+
+  toString() {
+    return this.desc
+  }
+}
+
+export interface Type<T = object> extends Function {
+  new (...args: any[]): T
+}
 
 export interface ValueProvider<T> {
   /**
    * An injection token. (Typically an instance of `Type` or `InjectionToken`, but can be `any`).
    */
-  provide: InjectionToken<T> | Type<T>
+  provide: Token<T>
   /**
    * The value to inject.
    */
   useValue: T
-  /**
-   * If true, then injector returns an array of instances. This is useful to allow multiple
-   * providers spread across many files to provide configuration information to a common token.
-   *
-   * ### Example
-   *
-   * {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
-   */
-  multi?: boolean
 }
 
-export interface FactoryProvider<T, Deps extends Array<any> = any[]> {
+export interface FactoryProvider<T, Deps extends Array<Token<any>> = any[]> {
   /**
    * An injection token. (Typically an instance of `Type` or `InjectionToken`, but can be `any`).
    */
-  provide: InjectionToken<T> | Type<T>
+  provide: Token<T>
   /**
    * A function to invoke to create a value for this `token`. The function is invoked with
    * resolved values of `token`s in the `deps` field.
@@ -35,56 +38,31 @@ export interface FactoryProvider<T, Deps extends Array<any> = any[]> {
    * used as arguments to the `useFactory` function.
    */
   deps?: Deps
-  /**
-   * If true, then injector returns an array of instances. This is useful to allow multiple
-   * providers spread across many files to provide configuration information to a common token.
-   *
-   * ### Example
-   *
-   * {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
-   */
-  multi?: boolean
 }
 
 export interface ClassProvider<T> {
   /**
    * An injection token. (Typically an instance of `Type` or `InjectionToken`, but can be `any`).
    */
-  provide: Type<T> | InjectionToken<T>
+  provide: Token<T>
   /**
    * Class to instantiate for the `token`.
    */
   useClass: Type<T>
-  /**
-   * If true, then injector returns an array of instances. This is useful to allow multiple
-   * providers spread across many files to provide configuration information to a common token.
-   *
-   * ### Example
-   *
-   * {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
-   */
-  multi?: boolean
 }
 
 export interface ExistingProvider<T> {
   /**
    * An injection token. (Typically an instance of `Type` or `InjectionToken`, but can be `any`).
    */
-  provide: InjectionToken<T> | Type<T>
+  provide: Token<T>
   /**
    * Existing `token` to return. (equivalent to `injector.get(useExisting)`)
    */
-  useExisting: InjectionToken<T>
-  /**
-   * If true, then injector returns an array of instances. This is useful to allow multiple
-   * providers spread across many files to provide configuration information to a common token.
-   *
-   * ### Example
-   *
-   * {@example core/di/ts/provider_spec.ts region='MultiProviderAspect'}
-   */
-  multi?: boolean
+  useExisting: Token<T>
 }
+
+export type Token<T = unknown> = Type<T> | InjectionToken<T>
 
 export type Provider<T = unknown> =
   | Type<T>

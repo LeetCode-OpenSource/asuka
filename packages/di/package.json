@@ -26,7 +26,6 @@
     "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
   },
   "dependencies": {
-    "injection-js": "^2.2.2",
     "tslib": "^1.10.0"
   },
   "optionalDependencies": {
