@@ -40,9 +40,7 @@ export class Injector {
 
   createChild(providers: Provider<unknown>[]): Injector {
     const childInjector = new Injector(this)
-    for (const provider of providers) {
-      childInjector.provider.addProvider(provider)
-    }
+    childInjector.addProviders(providers)
     return childInjector
   }
 
