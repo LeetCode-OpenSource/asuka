@@ -4599,12 +4599,13 @@ fast-json-stable-stringify@^2.0.0:
   integrity sha1-1RQsDK7msRifh9OnYREGT4bIu/I=
 
 fast-json-stringify@^1.15.7:
-  version "1.16.0"
-  resolved "https://registry.npmjs.org/fast-json-stringify/-/fast-json-stringify-1.16.0.tgz#f474c66db15a8ef1a9116b8a3a904ff381a08fc3"
-  integrity sha512-K06RTF3YV0gUAfUpwZ4m62CjI4NvV+0/eSz0YVmSKZHEDCgxNYBGI7weZdGZJFBjdZky1Tk5YTev2qLtKGGbzw==
+  version "1.16.2"
+  resolved "https://registry.npmjs.org/fast-json-stringify/-/fast-json-stringify-1.16.2.tgz#b3284755ce56c3d0c0b30c6967f11f0d16ff20f5"
+  integrity sha512-DDB+C5mAZ5RhN6fmgRJcKUwhscevRlDrbIV+Q/eEZ3mAyBNjms/qxpLMlDsTf8U3K8d+yObuMdAsxnIVhCbkvA==
   dependencies:
     ajv "^6.10.2"
     deepmerge "^4.0.0"
+    string-similarity "^4.0.1"
 
 fast-levenshtein@~2.0.6:
   version "2.0.6"
@@ -10491,6 +10492,11 @@ string-convert@^0.2.0:
   version "0.2.1"
   resolved "https://registry.npmjs.org/string-convert/-/string-convert-0.2.1.tgz#6982cc3049fbb4cd85f8b24568b9d9bf39eeff97"
   integrity sha1-aYLMMEn7tM2F+LJFaLnZvznu/5c=
+
+string-similarity@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.npmjs.org/string-similarity/-/string-similarity-4.0.1.tgz#ea7c11f0093cb3088cdcc5eb16cfd90cb54962f7"
+  integrity sha512-v36MJzloekKVvKAsYi6O/qpn2mIuvwEFIT9Gx3yg4spkNjXYsk7yxc37g4ZTyMVIBvt/9PZGxnqEtme8XHK+Mw==
 
 string-width@^1.0.1:
   version "1.0.2"
