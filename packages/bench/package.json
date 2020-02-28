@@ -25,7 +25,7 @@
     "@asuka/json-parse-wasm": "^0.3.0",
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
-    "antd": "^3.26.0",
+    "antd": "^4.0.0",
     "benchmark": "^2.1.4",
     "fast-deep-equal": "^3.1.1",
     "fast-json-stringify": "^1.15.7",
