@@ -28,7 +28,7 @@
     "antd": "^4.0.0",
     "benchmark": "^2.1.4",
     "fast-deep-equal": "^3.1.1",
-    "fast-json-stringify": "^1.15.7",
+    "fast-json-stringify": "^2.0.0",
     "tslib": "^1.10.0",
     "turbo-json-parse": "^2.3.0"
   },
