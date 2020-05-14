@@ -26,7 +26,7 @@
     "url": "https://github.com/LeetCode-OpenSource/asuka/issues"
   },
   "dependencies": {
-    "tslib": "^1.10.0"
+    "tslib": "^2.0.0"
   },
   "optionalDependencies": {
     "reflect-metadata": "^0.1.13"
