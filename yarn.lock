@@ -4500,9 +4500,9 @@ fast-json-stable-stringify@^2.0.0:
   integrity sha1-1RQsDK7msRifh9OnYREGT4bIu/I=
 
 fast-json-stringify@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/fast-json-stringify/-/fast-json-stringify-2.0.1.tgz#f8d7bfba7e705a1ef319954196a86e26691f9853"
-  integrity sha512-n3LQfUhYTk2p95RxPA0BEfzmAcCdJLCRQ0qphNiXMBmxHgteiCtUfBYc7ZNCzBTBWm/kHg81CI+hkxVwIHWTAw==
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/fast-json-stringify/-/fast-json-stringify-2.0.2.tgz#13a2de0c0d519ae1c948f06d1e3098ef9fe49885"
+  integrity sha512-BPhEKJvV0N9tRa0hnlBiWnkMmcYOisUQNwUIm7pHOWTcr1gbvG3sdbd87Ie1HSU8Ga+4PG+nxa8bdlhylc7Xpg==
   dependencies:
     ajv "^6.11.0"
     deepmerge "^4.2.2"
