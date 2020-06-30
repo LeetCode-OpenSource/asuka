@@ -1347,16 +1347,6 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@typescript-eslint/experimental-utils@3.4.0":
-  version "3.4.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/experimental-utils/-/experimental-utils-3.4.0.tgz#8a44dfc6fb7f1d071937b390fe27608ebda122b8"
-  integrity sha512-rHPOjL43lOH1Opte4+dhC0a/+ks+8gOBwxXnyrZ/K4OTAChpSjP76fbI8Cglj7V5GouwVAGaK+xVwzqTyE/TPw==
-  dependencies:
-    "@types/json-schema" "^7.0.3"
-    "@typescript-eslint/typescript-estree" "3.4.0"
-    eslint-scope "^5.0.0"
-    eslint-utils "^2.0.0"
-
 "@typescript-eslint/experimental-utils@3.5.0":
   version "3.5.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/experimental-utils/-/experimental-utils-3.5.0.tgz#d09f9ffb890d1b15a7ffa9975fae92eee05597c4"
@@ -1383,19 +1373,6 @@
   version "3.5.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/types/-/types-3.5.0.tgz#4e3d2a2272268d8ec3e3e4a37152a64956682639"
   integrity sha512-Dreqb5idi66VVs1QkbAwVeDmdJG+sDtofJtKwKCZXIaBsINuCN7Jv5eDIHrS0hFMMiOvPH9UuOs4splW0iZe4Q==
-
-"@typescript-eslint/typescript-estree@3.4.0":
-  version "3.4.0"
-  resolved "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-3.4.0.tgz#6a787eb70b48969e4cd1ea67b057083f96dfee29"
-  integrity sha512-zKwLiybtt4uJb4mkG5q2t6+W7BuYx2IISiDNV+IY68VfoGwErDx/RfVI7SWL4gnZ2t1A1ytQQwZ+YOJbHHJ2rw==
-  dependencies:
-    debug "^4.1.1"
-    eslint-visitor-keys "^1.1.0"
-    glob "^7.1.6"
-    is-glob "^4.0.1"
-    lodash "^4.17.15"
-    semver "^7.3.2"
-    tsutils "^3.17.1"
 
 "@typescript-eslint/typescript-estree@3.5.0":
   version "3.5.0"
@@ -4547,9 +4524,9 @@ fast-json-stable-stringify@^2.0.0:
   integrity sha1-1RQsDK7msRifh9OnYREGT4bIu/I=
 
 fast-json-stringify@^2.0.0:
-  version "2.2.0"
-  resolved "https://registry.npmjs.org/fast-json-stringify/-/fast-json-stringify-2.2.0.tgz#66353e1ad80401503a21b85c3e68370389938caa"
-  integrity sha512-ifA/JXvkrNA84dHbJ7UkMt20xdAZQmMBLy1ga+0wbH7IWa7j6mmq20wHhRT7SHBjw1J53LSmbCqz0Xdm+F8a5Q==
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/fast-json-stringify/-/fast-json-stringify-2.2.1.tgz#bf429cc5ae126efadf33d283e5b0eb42c0823976"
+  integrity sha512-5s4KScgFR3cmrAoMip9K1m+oP9OsMtU8pG2oNbztbGKS9Xn4oDyPXdqefjpeMrZU4wgGga6/jyIOasghBPcpcQ==
   dependencies:
     ajv "^6.11.0"
     deepmerge "^4.2.2"
