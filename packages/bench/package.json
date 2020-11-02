@@ -33,6 +33,6 @@
     "turbo-json-parse": "^2.3.0"
   },
   "devDependencies": {
-    "@types/benchmark": "^1.0.31"
+    "@types/benchmark": "^2.1.0"
   }
 }
